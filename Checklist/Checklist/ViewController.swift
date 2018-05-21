@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+
+//Below you're telling the compiler that the Storyboard is a TableView UI and the name of the table is "ChecklistViewController" (This is called a Controller)
+class ChecklistViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
