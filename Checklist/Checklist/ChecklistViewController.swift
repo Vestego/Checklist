@@ -11,12 +11,44 @@ import UIKit
 
 //Below you're telling the compiler that the Storyboard is a TableView UI and the name of the table is "ChecklistViewController" (This is called a Controller)
 class ChecklistViewController: UITableViewController {
-    var row0item: ChecklistItem
-    var row1item:  ChecklistItem
-    var row2item: ChecklistItem
-    var row3item: ChecklistItem
-    var row4item: ChecklistItem
+    var items: [ChecklistItem]
 
+    required init?(coder aDecoder: NSCoder) {
+        items = [ChecklistItem] ()
+        
+        let row0item = ChecklistItem()
+        row0item.text = "Walk the dog"
+        row0item.checked = false
+        items.append(row0item)
+        
+        let row1item = ChecklistItem()
+        row1item.text = "Brush my teeth"
+        row1item.checked = true
+        items.append(row1item)
+        
+        let row2item = ChecklistItem()
+        row2item.text = "Learn iOS development"
+        row2item.checked = true
+        items.append(row2item)
+        
+        let row3item = ChecklistItem()
+        row3item.text = "Soccer practice"
+        row3item.checked = false
+        items.append(row3item)
+        
+        let row4item = ChecklistItem()
+        row4item.text = "Eat ice cream"
+        row4item.checked = true
+        items.append(row4item)
+        
+        let row5item = ChecklistItem()
+        row5item.text = "Do other stuff"
+        row5item.checked = false
+        items.append(row5item)
+        
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -29,75 +61,45 @@ class ChecklistViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return items.count
     }
     
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
+        let item = items[indexPath.row]
         let label = cell.viewWithTag(1000) as! UILabel
         
-        if indexPath.row == 0 {
-            label.text = row0text
-        } else if indexPath.row == 1 {
-            label.text = row1text
-        } else if indexPath.row == 2 {
-            label.text = row2text
-        } else if indexPath.row == 3 {
-            label.text = row3text
-        } else if indexPath.row == 4 {
-            label.text = row4text
-        }
-        configureCheckmark(for: cell, at: indexPath)
+        
+        configureText(for: cell, with: item)
+        configureCheckmark(for: cell, with: item)
         return cell
-    }
+   }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let cell = tableView.cellForRow(at: indexPath) {
-            if indexPath.row == 0 {
-                row0checked = !row0checked
-            } else if indexPath.row == 1 {
-                row1checked = !row1checked
-            } else if indexPath.row == 2 {
-                row2checked = !row2checked
-            } else if indexPath.row == 3 {
-                row3checked = !row3checked
-            } else if indexPath.row == 4 {
-                row4checked = !row4checked
-            }
-            configureCheckmark(for: cell, at: indexPath)
+            let item = items[indexPath.row]
+            item.toggleChecked()
+            configureCheckmark(for: cell, with: item)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-        
-        
-        
-        
-        
     
-    func configureCheckmark(for cell: UITableViewCell,
-                               at indexPath: IndexPath) {
-        var isChecked = false
-        
-        if indexPath.row == 0 {
-            isChecked = row0checked
-        } else if indexPath.row == 1 {
-            isChecked = row1checked
-        } else if indexPath.row == 2 {
-            isChecked = row2checked
-        } else if indexPath.row == 3 {
-            isChecked = row3checked
-        } else if indexPath.row == 4 {
-            isChecked = row4checked
-        }
-        
-        if isChecked {
+    
+
+    func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
+        if item.checked {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
         }
-        
     }
+    
+    func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
+        let label = cell.viewWithTag(1000) as! UILabel
+        label.text = item.text
+    }
+    
 }
 
