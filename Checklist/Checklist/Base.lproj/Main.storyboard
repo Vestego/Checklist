@@ -76,9 +76,10 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
                                                         <action selector="done" destination="Yjc-Ok-C5J" eventType="editingDidEndOnExit" id="Hpd-D7-6aT"/>
+                                                        <outlet property="delegate" destination="Yjc-Ok-C5J" id="mIV-gv-d6Y"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -98,13 +99,14 @@
                                 <action selector="cancel" destination="Yjc-Ok-C5J" id="Bdz-0K-WM2"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="RqL-bv-aDg">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="done" systemItem="done" id="RqL-bv-aDg">
                             <connections>
                                 <action selector="done" destination="Yjc-Ok-C5J" id="aSs-tj-SM8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneBarButton" destination="RqL-bv-aDg" id="lhS-jn-xrR"/>
                         <outlet property="textField" destination="4d7-gn-HYZ" id="bSQ-3f-x9l"/>
                     </connections>
                 </tableViewController>
