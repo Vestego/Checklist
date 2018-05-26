@@ -29,11 +29,11 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
 
     required init?(coder aDecoder: NSCoder) {
         items = [ChecklistItem] ()
-        
-        let row0item = ChecklistItem()
-        row0item.text = "Walk the dog"
-        row0item.checked = false
-        items.append(row0item)
+        //ROW =1
+        //let row0item = ChecklistItem()
+        //row0item.text = "Walk the dog"
+        //row0item.checked = false
+        //items.append(row0item)
         
         super.init(coder: aDecoder)
     }
