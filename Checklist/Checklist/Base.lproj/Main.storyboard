@@ -44,7 +44,7 @@
                     <navigationItem key="navigationItem" title="Checklists" id="Z4c-93-gtq">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Yd0-g0-oNc">
                             <connections>
-                                <segue destination="Yjc-Ok-C5J" kind="show" id="xKv-1r-Hjr"/>
+                                <segue destination="Yjc-Ok-C5J" kind="show" identifier="AddItem" id="xKv-1r-Hjr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -112,7 +112,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VaG-D4-2pv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1333.3333333333335" y="84.782608695652186"/>
+            <point key="canvasLocation" x="1572" y="86"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="14S-iu-Omk">
