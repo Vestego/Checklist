@@ -166,19 +166,19 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
     
     
     
-//
+////
 //    func documentsDirectory() -> URL {
 //        let paths = FileManager.default.urls(for: .documentDirectory,
 //                                             in: .userDomainMask)
 //        return paths[0]
 //    }
-//
+////
 //    func dataFilePath() -> URL {
 //        return documentsDirectory().appendingPathComponent(
 //            "Checklists.plist")
 //    }
-//
-//    // this method is now called saveChecklists()
+////
+////    this method is now called saveChecklists()
 //    func saveChecklists() {
 //        let encoder = PropertyListEncoder()
 //        do {
@@ -191,7 +191,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
 //        }
 //    }
 //
-//    // this method is now called loadChecklists()
+////    // this method is now called loadChecklists()
 //    func loadChecklists() {
 //        let path = dataFilePath()
 //        if let data = try? Data(contentsOf: path) {
