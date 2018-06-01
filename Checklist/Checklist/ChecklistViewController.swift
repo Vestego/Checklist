@@ -22,8 +22,8 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.largeTitleDisplayMode = .never
         //Loading checklist.items from your saved filewhen the app starts
-
         title = checklist.name
+        loadChecklists()
     }
     
     
@@ -153,52 +153,39 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
     }
     
     
-    //Saving data to the DocumentsDirectory
-//    func documentsDirectory() -> URL {
-//        let paths = FileManager.default.urls(for: .documentDirectory,
-//                                             in: .userDomainMask)
-//        return paths[0]
-//    }
+    func documentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
     
-//    func dataFilePath() -> URL {
-//        return documentsDirectory().appendingPathComponent(
-//            "Checklists.plist")
-//    }
+    func dataFilePath() -> URL {
+        return documentsDirectory().appendingPathComponent("Checklists.plist")
+    }
     
+    // this method is now called saveChecklists()
+    func saveChecklists() {
+        let encoder = PropertyListEncoder()
+        do {
+            // You encode lists instead of "items"
+            let data = try encoder.encode(lists)
+            try data.write(to: dataFilePath(),
+                                  options: Data.WritingOptions.atomic)
+        } catch {
+            print("Error encoding item array!")
+        }
+    }
     
-//    //MARK-> Save objects to the file
-//    func saveChecklistItems() {
-//        // 1
-//        let encoder = PropertyListEncoder()
-//        // 2
-//        do {
-//            // 3
-//            let data = try encoder.encode (checklist.items)
-//            // 4
-//            try data.write(to: dataFilePath(),
-//                           options: Data.WritingOptions.atomic)
-//            // 5
-//        } catch {
-//            // 6
-//            print("Error encoding item array!")
-//        }
-//    }
-    
-//    //MARK-> Read objects from the file
-//    func loadChecklistItems() {
-//        // 1
-//        let path = dataFilePath()
-//        // 2
-//        if let data = try? Data(contentsOf: path) {
-//            // 3
-//            let decoder = PropertyListDecoder()
-//            do {
-//                // 4
-//                checklist.items = try decoder.decode([ChecklistItem].self,
-//                                           from: data)
-//            } catch {
-//                print("Error decoding item array!")
-//            }
-//        }
-//    }
+    // this method is now called loadChecklists()
+    func loadChecklists() {
+        let path = dataFilePath()
+        if let data = try? Data(contentsOf: path) {
+            let decoder = PropertyListDecoder()
+            do {
+                // You decode to an object of [Checklist] type to lists
+                lists = try decoder.decode([Checklist].self, from: data)
+            } catch {
+                print("Error decoding item array!")
+            }
+        }
+    }
 }
