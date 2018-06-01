@@ -20,8 +20,10 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
         super.viewDidLoad()
         //I dont want a big title, so have it as =false :]
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         //Loading Items from your saved filewhen the app starts
         loadChecklistItems()
+        title = checklist.name
     }
     
     
@@ -37,6 +39,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
     }
     
     var items = [ChecklistItem]()
+    var checklist: Checklist!
     
     required init?(coder aDecoder: NSCoder) {
         items = [ChecklistItem] ()

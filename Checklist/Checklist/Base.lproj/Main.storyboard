@@ -22,14 +22,59 @@
                             <outlet property="delegate" destination="aZn-Q6-aIv" id="Fim-MO-Gfe"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Checklists" id="5kI-Dx-rNl"/>
+                    <navigationItem key="navigationItem" title="Checklists" largeTitleDisplayMode="always" id="5kI-Dx-rNl"/>
                     <connections>
                         <segue destination="foG-Se-HHK" kind="show" identifier="ShowChecklist" id="7GV-aa-Jvl"/>
+                        <segue destination="eHT-FE-JZe" kind="show" id="8F6-Va-VSl"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BF7-Vu-shG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="258" y="86"/>
+        </scene>
+        <!--Add Checklist-->
+        <scene sceneID="cqd-pi-So8">
+            <objects>
+                <tableViewController id="eHT-FE-JZe" customClass="ListDetailViewController" customModule="Checklist" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="CQr-Qf-cJ8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Gbo-Z7-UJd">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gbo-Z7-UJd" id="UcP-2S-5o5">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="eHT-FE-JZe" id="X6i-Ha-Egl"/>
+                            <outlet property="delegate" destination="eHT-FE-JZe" id="PP9-mp-J2t"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="Cancel" id="Plv-Kg-tsf"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Add Checklist" largeTitleDisplayMode="never" id="5EL-Em-sKQ">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="sSg-Go-5wI">
+                            <connections>
+                                <action selector="cancel" destination="eHT-FE-JZe" id="DBG-lW-50l"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="qMu-gT-hqg">
+                            <connections>
+                                <action selector="done" destination="eHT-FE-JZe" id="aRC-fA-viy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H44-WL-EDH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="258" y="912"/>
         </scene>
         <!--Checklist-->
         <scene sceneID="Wve-0W-E4P">
