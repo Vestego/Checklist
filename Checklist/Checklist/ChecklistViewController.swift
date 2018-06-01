@@ -10,12 +10,12 @@ import UIKit
 
 
 //Below you're telling the compiler that the Storyboard is a TableView UI and the name of the table is "ChecklistViewController" (This is called a Controller)
-class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
-    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+class ChecklistViewController: UITableViewController, itemDetailViewControllerDelegate {
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
         navigationController?.popViewController(animated: true)
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
         let newRowIndex = items.count
         items.append(item)
         
@@ -113,13 +113,13 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         //1
         if segue.identifier == "AddItem" {
             //2
-            let controller = segue.destination as! AddItemViewController
+            let controller = segue.destination as! ItemDetailViewController
             //3
             controller.delegate = self
             
             } else if segue.identifier == "EditItem" {
             let controller = segue.destination
-                as! AddItemViewController
+                as! ItemDetailViewController
             controller.delegate = self
             
             if let indexPath = tableView.indexPath(
@@ -129,7 +129,7 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         }
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ChecklistItem) {
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
         if let index = items.index(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) {
