@@ -24,18 +24,18 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         }
         
         
-        // Add placeholder data
-        var list = Checklist(name: "Check 1")
-        lists.append(list)
-        
-        list = Checklist(name: "Check 2")
-        lists.append(list)
-        
-        list = Checklist(name: "Check 3")
-        lists.append(list)
-        
-        list = Checklist(name: "Check 4")
-        lists.append(list)
+//        // Add placeholder data
+//        var list = Checklist(name: "Check 1")
+//        lists.append(list)
+//
+//        list = Checklist(name: "Check 2")
+//        lists.append(list)
+//
+//        list = Checklist(name: "Check 3")
+//        lists.append(list)
+//
+//        list = Checklist(name: "Check 4")
+//        lists.append(list)
     }
 
     
