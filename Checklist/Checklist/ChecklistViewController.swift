@@ -60,7 +60,15 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
         let item = items[indexPath.row]
         configureText(for: cell, with: item)
-        configureCheckmark(for: cell, with: item)
+        func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
+            let label = cell.viewWithTag(1001) as! UILabel
+            
+            if item.checked {
+                label.text = "√"
+            } else {
+                label.text = ""
+            }
+        }
         return cell
     }
     
