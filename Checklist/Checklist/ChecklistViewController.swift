@@ -15,6 +15,16 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
         navigationController?.popViewController(animated: true)
     }
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //I dont want a big title, so have it as =false :]
+        navigationController?.navigationBar.prefersLargeTitles = false
+        //Loading Items from your saved filewhen the app starts
+        loadChecklistItems()
+    }
+    
+    
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
         let newRowIndex = items.count
         items.append(item)
@@ -23,9 +33,10 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
         let indexPaths = [indexPath]
         tableView.insertRows(at: indexPaths, with: .automatic)
         navigationController?.popViewController(animated: true)
+        saveChecklistItems()
     }
     
-    var items: [ChecklistItem]
+    var items = [ChecklistItem]()
     
     required init?(coder aDecoder: NSCoder) {
         items = [ChecklistItem] ()
@@ -36,14 +47,11 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
         //items.append(row0item)
         
         super.init(coder: aDecoder)
+        print("Documents folder is \(documentsDirectory())")
+        print("Data file path is \(dataFilePath())")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        print("Hello World")
-        navigationController?.navigationBar.prefersLargeTitles = false //EOGHAN - I changed this from true to false cos I didn't like the massive bar at the top
-    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -80,6 +88,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
             configureCheckmark(for: cell, with: item)
         }
         tableView.deselectRow(at: indexPath, animated: true)
+        saveChecklistItems()
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -90,6 +99,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
         //2
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
+        saveChecklistItems()
     }
     
     
@@ -137,6 +147,57 @@ class ChecklistViewController: UITableViewController, itemDetailViewControllerDe
             }
         }
         navigationController?.popViewController(animated:true)
+        saveChecklistItems()
+    }
+    
+    
+    //Saving data to the DocumentsDirectory
+    func documentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory,
+                                             in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func dataFilePath() -> URL {
+        return documentsDirectory().appendingPathComponent(
+            "Checklists.plist")
+    }
+    
+    
+    //MARK-> Save objects to the file
+    func saveChecklistItems() {
+        // 1
+        let encoder = PropertyListEncoder()
+        // 2
+        do {
+            // 3
+            let data = try encoder.encode (items)
+            // 4
+            try data.write(to: dataFilePath(),
+                           options: Data.WritingOptions.atomic)
+            // 5
+        } catch {
+            // 6
+            print("Error encoding item array!")
+        }
+    }
+    
+    //MARK-> Read objects from the file
+    func loadChecklistItems() {
+        // 1
+        let path = dataFilePath()
+        // 2
+        if let data = try? Data(contentsOf: path) {
+            // 3
+            let decoder = PropertyListDecoder()
+            do {
+                // 4
+                items = try decoder.decode([ChecklistItem].self,
+                                           from: data)
+            } catch {
+                print("Error decoding item array!")
+            }
+        }
     }
 
 }
