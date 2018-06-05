@@ -10,19 +10,17 @@ import UIKit
 
 protocol ListDetailViewControllerDelegate: class {
     func listDetailViewControllerDidCancel(_ controller: ListDetailViewController)
-    
     func listDetailViewController(_ controller: ListDetailViewController, didFinishAdding checklist: Checklist)
-    
     func listDetailViewController(_ controller: ListDetailViewController, didFinishEditing checklist: Checklist)
 }
 
 class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var textField: UITextField!
-
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet weak var iconImageView: UIImageView!
+    
     
     weak var delegate: ListDetailViewControllerDelegate?
-    
     var checklistToEdit: Checklist?
     
 //  Do this when launching the app
@@ -63,7 +61,11 @@ override func viewWillAppear(_ animated: Bool) {
 // MARK:- TableView Delegates
 //    Stop the user from selecting the cell in the field
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if indexPath.section == 1 {
+            return indexPath
+        } else  {
         return nil
+        }
     }
     
 // MARK:- UITextField Delegates
