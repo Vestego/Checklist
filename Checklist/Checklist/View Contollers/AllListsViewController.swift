@@ -8,13 +8,34 @@
 
 import UIKit
 
-class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate {
+class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate, UINavigationControllerDelegate {
     var dataModel: DataModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Enable large titles
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    
+    //Display the last opened list upon opening
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.delegate = self
+        let index = dataModel.indexOfSelectedChecklists
+        
+        //&& = “ if something is true and something else is also true, then do stuff.”
+        if index >= 0 && index < dataModel.lists.count {
+            let checklist = dataModel.lists[index]
+            performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+        }
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        //was the back button tapped?
+        if viewController === self {
+            dataModel.indexOfSelectedChecklists = -1
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -59,6 +80,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       dataModel.indexOfSelectedChecklists = indexPath.row
         let checklist = dataModel.lists[indexPath.row]
         performSegue(withIdentifier: "ShowChecklist", sender: checklist)
     }
@@ -105,4 +127,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         }
         navigationController?.popViewController(animated: true)
     }
+    
+
 }
+
